@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TWOgether — Our future, together.</title>
+  <meta name="description" content="Plataforma privada de planejamento de vida a dois de Pedro & Emilly.">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💍</text></svg>">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;1,400&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <!-- Login Screen -->
+  <section id="loginScreen" class="login-container">
+    <div class="login-card">
+      <div class="brand-header">
+        <div class="logo-heart">❤️</div>
+        <h1 class="brand-title">TWO<span>gether</span></h1>
+        <p class="brand-slogan">Our future, together.</p>
+        <span class="badge-private">Espaço Privado do Casal</span>
+      </div>
+
+      <div id="loginError" class="alert-error" style="display: none;"></div>
+
+      <form id="loginForm" class="login-form">
+        <div class="form-group">
+          <label for="loginEmail">E-MAIL DO CASAL</label>
+          <input type="email" id="loginEmail" placeholder="pedro@gmail.com ou emilly@gmail.com" required>
+        </div>
+
+        <div class="form-group">
+          <label for="loginPassword">SENHA DE ACESSO</label>
+          <div class="input-password-wrapper">
+            <input type="password" id="loginPassword" placeholder="••••••••" required>
+            <button type="button" id="togglePasswordBtn" class="btn-toggle-eye">👁️</button>
+          </div>
+        </div>
+
+        <button type="submit" id="submitLoginBtn" class="btn-primary btn-block">
+          Entrar no Nosso Espaço ❤️
+        </button>
+      </form>
+
+      <div class="quick-credentials">
+        <p>Acesso rápido de teste:</p>
+        <div class="credentials-buttons">
+          <button type="button" class="btn-preset" onclick="fillAccount('pedro')">Pedro (pedro@gmail.com)</button>
+          <button type="button" class="btn-preset" onclick="fillAccount('emilly')">Emilly (emilly@gmail.com)</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Authenticated Platform Interface -->
+  <div id="appContainer" class="app-container" style="display: none;">
+    <!-- Top Navigation Header -->
+    <header class="top-nav">
+      <div class="nav-brand" onclick="switchTab('dashboard')">
+        <div class="brand-icon">❤️</div>
+        <div>
+          <span class="brand-text">TWO<span class="rose">gether</span></span>
+          <span class="couple-tag">Pedro & Emilly</span>
+          <p class="nav-slogan">Our future, together.</p>
+        </div>
+      </div>
+
+      <!-- Partner Status & Mood -->
+      <div class="partner-status-hub">
+        <div class="status-chip" onclick="openMoodModal()">
+          <span class="online-indicator"></span>
+          <span id="userNameDisplay">Você</span>:
+          <strong id="userMoodDisplay">Apaixonado(a) 🥰</strong>
+        </div>
+        <div class="status-chip partner-chip">
+          <span class="online-indicator"></span>
+          <span id="partnerNameDisplay">Emilly</span>:
+          <strong id="partnerMoodDisplay">Em sintonia ✨</strong>
+        </div>
+        <button id="logoutBtn" class="btn-logout" title="Sair do aplicativo">Sair</button>
+      </div>
+    </header>
+
+    <!-- Navigation Tabs Menu -->
+    <nav class="tabs-nav">
+      <button class="nav-tab active" data-tab="dashboard" onclick="switchTab('dashboard')">❤️ Visão Geral</button>
+      <button class="nav-tab" data-tab="goals" onclick="switchTab('goals')">🎯 Objetivos</button>
+      <button class="nav-tab" data-tab="dreams" onclick="switchTab('dreams')">✨ Sonhos</button>
+      <button class="nav-tab" data-tab="calendar" onclick="switchTab('calendar')">📅 Calendário</button>
+      <button class="nav-tab" data-tab="house" onclick="switchTab('house')">🏡 Futura Casa</button>
+      <button class="nav-tab" data-tab="finances" onclick="switchTab('finances')">💰 Finanças</button>
+      <button class="nav-tab" data-tab="trips" onclick="switchTab('trips')">✈️ Viagens</button>
+      <button class="nav-tab" data-tab="memories" onclick="switchTab('memories')">📸 Memórias</button>
+      <button class="nav-tab" data-tab="letters" onclick="switchTab('letters')">💌 Cartas Lacradas</button>
+      <button class="nav-tab" data-tab="timeline" onclick="switchTab('timeline')">⏳ Nossa Linha</button>
+    </nav>
+
+    <!-- Main Views Container -->
+    <main class="main-content">
+      <!-- 1. Dashboard Tab -->
+      <section id="tab-dashboard" class="tab-view active">
+        <div class="hero-card">
+          <div class="hero-left">
+            <span class="pill-white">Espaço Pedro & Emilly</span>
+            <h2 id="heroGreeting">Construindo cada detalhe do nosso futuro.</h2>
+            <p class="hero-slogan">"Our future, together."</p>
+            <p class="hero-summary">Cada plano que desenhamos juntos é uma promessa de carinho, cumplicidade e amor infinito.</p>
+          </div>
+          <div class="hero-counter">
+            <span class="counter-label">Juntos há</span>
+            <div id="daysCounterNumber" class="counter-number">--</div>
+            <span class="counter-sub">dias de amor ❤️</span>
+          </div>
+        </div>
+
+        <!-- Sticky Notes Mural -->
+        <div class="content-box">
+          <div class="box-header">
+            <h3>📌 Mural de Recados do Casal</h3>
+            <p>Deixe uma mensagem fofa para seu amor hoje.</p>
+          </div>
+          <form id="noteForm" class="note-form" onsubmit="handlePostNote(event)">
+            <input type="text" id="noteInput" placeholder="Escreva um bilhetinho carinhoso..." required>
+            <button type="submit" class="btn-primary">Colar no Mural</button>
+          </form>
+          <div id="notesGrid" class="notes-grid"></div>
+        </div>
+      </section>
+
+      <!-- 2. Goals Tab -->
+      <section id="tab-goals" class="tab-view">
+        <div class="section-header">
+          <div>
+            <h2>🎯 Objetivos de Vida a Dois</h2>
+            <p>Nossas metas estruturadas para o futuro.</p>
+          </div>
+        </div>
+        <div id="goalsGrid" class="cards-grid"></div>
+      </section>
+
+      <!-- 3. Dreams Tab -->
+      <section id="tab-dreams" class="tab-view">
+        <div class="section-header">
+          <div>
+            <h2>✨ Lista de Sonhos (Bucket List)</h2>
+            <p>Lugares, conquistas e momentos que sonhamos viver.</p>
+          </div>
+        </div>
+        <div id="dreamsGrid" class="cards-grid"></div>
+      </section>
+
+      <!-- 4. Calendar Tab -->
+      <section id="tab-calendar" class="tab-view">
+        <div class="section-header">
+          <div>
+            <h2>📅 Calendário & Datas Importantes</h2>
+            <p>Aniversários, viagens e contagens regressivas.</p>
+          </div>
+        </div>
+        <div id="calendarList" class="timeline-list"></div>
+      </section>
+
+      <!-- 5. Future House Tab -->
+      <section id="tab-house" class="tab-view">
+        <div class="section-header">
+          <div>
+            <h2>🏡 Planejamento da Futura Casa</h2>
+            <p>Móveis, decoração e cômodos do nosso ninho.</p>
+          </div>
+        </div>
+        <div id="houseGrid" class="cards-grid"></div>
+      </section>
+
+      <!-- 6. Finances Tab -->
+      <section id="tab-finances" class="tab-view">
+        <div class="section-header">
+          <div>
+            <h2>💰 Finanças e Caixinhas</h2>
+            <p>Poupança e reservas conjuntas do casal.</p>
+          </div>
+        </div>
+        <div id="financesGrid" class="cards-grid"></div>
+      </section>
+
+      <!-- 7. Trips Tab -->
+      <section id="tab-trips" class="tab-view">
+        <div class="section-header">
+          <div>
+            <h2>✈️ Viagens e Roteiros</h2>
+            <p>Roteiros dia a dia e lista de bagagens.</p>
+          </div>
+        </div>
+        <div id="tripsGrid" class="cards-grid"></div>
+      </section>
+
+      <!-- 8. Memories Tab -->
+      <section id="tab-memories" class="tab-view">
+        <div class="section-header">
+          <div>
+            <h2>📸 Álbum de Memórias & Fotos</h2>
+            <p>Polaroids dos nossos dias mais felizes.</p>
+          </div>
+        </div>
+        <div id="memoriesGrid" class="polaroids-grid"></div>
+      </section>
+
+      <!-- 9. Letters Tab -->
+      <section id="tab-letters" class="tab-view">
+        <div class="section-header">
+          <div>
+            <h2>💌 Cartas Lacradas & Cápsulas do Tempo</h2>
+            <p>Cartas de amor com lacre de cera e aberturas programadas.</p>
+          </div>
+        </div>
+        <div id="lettersGrid" class="cards-grid"></div>
+      </section>
+
+      <!-- 10. Timeline Tab -->
+      <section id="tab-timeline" class="tab-view">
+        <div class="section-header">
+          <div>
+            <h2>⏳ Nossa Linha do Tempo</h2>
+            <p>A história do nosso amor capítulo por capítulo.</p>
+          </div>
+        </div>
+        <div id="timelineContainer" class="vertical-timeline"></div>
+      </section>
+    </main>
+
+    <footer class="app-footer">
+      <p>TWOgether 1.0 • Pedro & Emilly — Our future, together.</p>
+    </footer>
+  </div>
+
+  <script src="js/config.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

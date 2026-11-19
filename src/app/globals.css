@@ -1,0 +1,73 @@
+@import "tailwindcss";
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  }
+}
+
+/* Delicate, soothing pastel palette */
+:root {
+  --pastel-bg: #fbf9f6;
+  --pastel-card: #ffffff;
+  --pastel-rose: #e8a5a5;
+  --pastel-rose-hover: #dd9494;
+  --pastel-rose-light: #faeaea;
+  --pastel-lavender: #e5def0;
+  --pastel-sage: #dbe7d5;
+  --pastel-butter: #faeed1;
+  --pastel-peach: #fce8db;
+  --pastel-border: #ede4dc;
+  --pastel-text: #44403c;
+  --pastel-text-muted: #78716c;
+}
+
+body {
+  background-color: #faf7f2;
+  color: #44403c;
+}
+
+.bg-pastel-gradient {
+  background: radial-gradient(circle at 10% 20%, #fceede 0%, #faedf1 45%, #f4f0fa 80%, #fbf9f6 100%);
+}
+
+.bg-pastel-hero {
+  background: linear-gradient(135deg, #e8a8a8 0%, #eac2b8 40%, #e2bfd9 100%);
+}
+
+.pastel-glass-card {
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid #ebdcd5;
+}
+
+.pastel-card-hover {
+  transition: all 0.25s ease-in-out;
+}
+
+.pastel-card-hover:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px -8px rgba(180, 140, 140, 0.12);
+  border-color: #dfcac2;
+}
+
+/* Custom delicate pastel scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f7f1eb;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #e2b6b6;
+  border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #d49f9f;
+}
